@@ -12,6 +12,10 @@
 
 class SineComponents
 {
+public:
+    SineComponents(): gain (0.0), onOff (0) {
+        
+    }
     Slider frequencySlider;
     Slider gainSlider;
     
@@ -33,43 +37,43 @@ class MainContentComponent :
     private ToggleButton::Listener
 {
 public:
-    MainContentComponent() : gain (0.0), onOff (0), samplingRate(0.0)
+    MainContentComponent() : samplingRate(0.0)
     {
         // configuring frequency slider and adding it to the main window
-        addAndMakeVisible (frequencySlider);
-        frequencySlider.setRange (50.0, 5000.0);
-        frequencySlider.setSkewFactorFromMidPoint (500.0);
-        frequencySlider.setValue(1000); // will also set the default frequency of the sine osc
-        frequencySlider.addListener (this);
+        addAndMakeVisible (sc.frequencySlider);
+        sc.frequencySlider.setRange (50.0, 5000.0);
+        sc.frequencySlider.setSkewFactorFromMidPoint (500.0);
+        sc.frequencySlider.setValue(1000); // will also set the default frequency of the sine osc
+        sc.frequencySlider.addListener (this);
         
         // configuring frequency label box and adding it to the main window
-        addAndMakeVisible(frequencyLabel);
-        frequencyLabel.setText ("Frequency", dontSendNotification);
-        frequencyLabel.attachToComponent (&frequencySlider, true);
+        addAndMakeVisible(sc.frequencyLabel);
+        sc.frequencyLabel.setText ("Frequency", dontSendNotification);
+        sc.frequencyLabel.attachToComponent (&sc.frequencySlider, true);
         
         
         // configuring gain slider and adding it to the main window
-        addAndMakeVisible (gainSlider);
-        gainSlider.setRange (0.0, 1.0);
-        gainSlider.setValue(0.5); // will alsi set the default gain of the sine osc
-        gainSlider.addListener (this);
+        addAndMakeVisible (sc.gainSlider);
+        sc.gainSlider.setRange (0.0, 1.0);
+        sc.gainSlider.setValue(0.5); // will alsi set the default gain of the sine osc
+        sc.gainSlider.addListener (this);
         
         
         // configuring gain label and adding it to the main window
-        addAndMakeVisible(gainLabel);
-        gainLabel.setText ("Gain", dontSendNotification);
-        gainLabel.attachToComponent (&gainSlider, true);
+        addAndMakeVisible(sc.gainLabel);
+        sc.gainLabel.setText ("Gain", dontSendNotification);
+        sc.gainLabel.attachToComponent (&sc.gainSlider, true);
         
         
         // configuring on/off button and adding it to the main window
-        addAndMakeVisible(onOffButton);
-        onOffButton.addListener(this);
+        addAndMakeVisible(sc.onOffButton);
+        sc.onOffButton.addListener(this);
         
         
         // configuring on/off label and adding it to the main window
-        addAndMakeVisible(onOffLabel);
-        onOffLabel.setText ("On/Off", dontSendNotification);
-        onOffLabel.attachToComponent (&onOffButton, true);
+        addAndMakeVisible(sc.onOffLabel);
+        sc.onOffLabel.setText ("On/Off", dontSendNotification);
+       sc. onOffLabel.attachToComponent (&sc.onOffButton, true);
         
         setSize (600, 100);
         nChans = 1;
@@ -86,19 +90,19 @@ public:
         // placing the UI elements in the main window
         // getWidth has to be used in case the window is resized by the user
         const int sliderLeft = 80;
-        frequencySlider.setBounds (sliderLeft, 10, getWidth() - sliderLeft - 20, 20);
-        gainSlider.setBounds (sliderLeft, 40, getWidth() - sliderLeft - 20, 20);
-        onOffButton.setBounds (sliderLeft, 70, getWidth() - sliderLeft - 20, 20);
+        sc.frequencySlider.setBounds (sliderLeft, 10, getWidth() - sliderLeft - 20, 20);
+        sc.gainSlider.setBounds (sliderLeft, 40, getWidth() - sliderLeft - 20, 20);
+        sc.onOffButton.setBounds (sliderLeft, 70, getWidth() - sliderLeft - 20, 20);
     }
     
     void sliderValueChanged (Slider* slider) override
     {
         if (samplingRate > 0.0){
-            if (slider == &frequencySlider){
-                sine.setFrequency(frequencySlider.getValue());
+            if (slider == &sc.frequencySlider){
+                sc.sine.setFrequency(sc.frequencySlider.getValue());
             }
-            else if (slider == &gainSlider){
-                gain = gainSlider.getValue();
+            else if (slider == &sc.gainSlider){
+                sc.gain = sc.gainSlider.getValue();
             }
         }
     }
@@ -106,18 +110,18 @@ public:
     void buttonClicked (Button* button) override
     {
         // turns audio on or off
-        if(button == &onOffButton && onOffButton.getToggleState()){
-            onOff = 1;
+        if(button == &sc.onOffButton && sc.onOffButton.getToggleState()){
+            sc.onOff = 1;
         }
         else{
-            onOff = 0;
+            sc.onOff = 0;
         }
     }
     
     void prepareToPlay (int /*samplesPerBlockExpected*/, double sampleRate) override
     {
         samplingRate = sampleRate;
-        sine.setSamplingRate(sampleRate);
+        sc.sine.setSamplingRate(sampleRate);
     }
     
     void releaseResources() override
@@ -132,7 +136,7 @@ public:
         // computing one block
         for (int sample = 0; sample < bufferToFill.numSamples; ++sample)
         {
-            if(onOff == 1) buffer[sample] = sine.tick() * gain;
+            if(sc.onOff == 1) buffer[sample] = sc.sine.tick() * sc.gain;
             
            // if(onOff == 1) buffer[sample] = (float) rand()/RAND_MAX * gain;
 
@@ -143,19 +147,20 @@ public:
     
 private:
     // UI Elements
-    Slider frequencySlider;
-    Slider gainSlider;
+   // Slider frequencySlider;
+   // Slider gainSlider;
     
-    ToggleButton onOffButton;
+    //ToggleButton onOffButton;
     
-    Label frequencyLabel, gainLabel, onOffLabel;
+   // Label frequencyLabel, gainLabel, onOffLabel;
     
-    Sine sine; // the sine wave oscillator
-    SineComponents sc1;
+    //Sine sine; // the sine wave oscillator
+    SineComponents sc;
     
     // Global Variables
-    float gain;
-    int onOff, samplingRate, nChans;
+  //  float gain;
+   // int onOff,
+    int samplingRate, nChans;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };

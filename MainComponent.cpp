@@ -146,20 +146,9 @@ public:
     
     
 private:
-    // UI Elements
-   // Slider frequencySlider;
-   // Slider gainSlider;
-    
-    //ToggleButton onOffButton;
-    
-   // Label frequencyLabel, gainLabel, onOffLabel;
-    
-    //Sine sine; // the sine wave oscillator
+
     SineComponents sc;
-    
-    // Global Variables
-  //  float gain;
-   // int onOff,
+
     int samplingRate, nChans;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)

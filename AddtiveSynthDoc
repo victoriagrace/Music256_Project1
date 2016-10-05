@@ -1,0 +1,10 @@
+Simple Additive Synthesizer
+
+User Instructions:
+
+Take source code provided on github and replace source folder with BasicAudio provided by Music 256A instructors. Open up project in Xcode and click run.
+
+This program synthesizes sine wave oscillators and adds them together. You can turn each sine oscillator on and off and control the frequency and gain by changing the sliders.
+Explore the effects of beating and amplitude modulation by experimenting with different frequency combinations. 
+
+To change the number of sine oscillators available change the global variable #define NUMSLIDERS in MainComponent.cpp. The default value is set to 8 sine oscillators.

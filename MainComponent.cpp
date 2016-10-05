@@ -2,6 +2,8 @@
 // CCRMA, Stanford University
 //
 // Author: Romain Michon (rmichonATccrmaDOTstanfordDOTedu)
+// Edited by Victoria Grace 9/4/2016
+
 // Description: Simple JUCE sine wave synthesizer
 
 #ifndef MAINCOMPONENT_H_INCLUDED
@@ -10,7 +12,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Sine.h"
 #define NUMSLIDERS 8 // Number of sine oscillator sliders
-// Class for sine oscillators
+
+// Class group sine oscillator components (classes and variables)
 class SineComponents
 {
 public:
@@ -96,7 +99,8 @@ public:
         // placing the UI elements in the main window
         // getWidth has to be used in case the window is resized by the user
         const int sliderLeft = 80;
-        for(int n = 0; n < NUMSLIDERS; n++) { // for loop for adding paramaters to each sine slider
+        // for loop for adding paramaters to each sine slider
+        for(int n = 0; n < NUMSLIDERS; n++) {
             sc[n].frequencySlider.setBounds (sliderLeft, 10 + 90 * n, getWidth() - sliderLeft - 20, 20);
             sc[n].gainSlider.setBounds (sliderLeft, 40 + 90 * n, getWidth() - sliderLeft - 20, 20);
             sc[n].onOffButton.setBounds (sliderLeft, 70 + 90 * n, getWidth() - sliderLeft - 20, 20);

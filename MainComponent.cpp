@@ -9,8 +9,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Sine.h"
-#define NUMSLIDERS 4
-
+#define NUMSLIDERS 8 // Number of sine oscillator sliders
+// Class for sine oscillators
 class SineComponents
 {
 public:
@@ -40,6 +40,7 @@ class MainContentComponent :
 public:
     MainContentComponent() : samplingRate(0.0)
     {
+        // for loop implimenting methods for each sine osc slider
         for (int n=0; n < NUMSLIDERS; n++) {
             
         
@@ -95,7 +96,7 @@ public:
         // placing the UI elements in the main window
         // getWidth has to be used in case the window is resized by the user
         const int sliderLeft = 80;
-        for(int n = 0; n < NUMSLIDERS; n++) {
+        for(int n = 0; n < NUMSLIDERS; n++) { // for loop for adding paramaters to each sine slider
             sc[n].frequencySlider.setBounds (sliderLeft, 10 + 90 * n, getWidth() - sliderLeft - 20, 20);
             sc[n].gainSlider.setBounds (sliderLeft, 40 + 90 * n, getWidth() - sliderLeft - 20, 20);
             sc[n].onOffButton.setBounds (sliderLeft, 70 + 90 * n, getWidth() - sliderLeft - 20, 20);
@@ -104,7 +105,7 @@ public:
     
     void sliderValueChanged (Slider* slider) override
     {
-        for(int n = 0; n < NUMSLIDERS; n++) {
+        for(int n = 0; n < NUMSLIDERS; n++) { // for loop for each sine slider
 
             if (samplingRate > 0.0){
                 if (slider == &sc[n].frequencySlider){
@@ -138,7 +139,7 @@ public:
     void prepareToPlay (int /*samplesPerBlockExpected*/, double sampleRate) override
     {
         for(int n = 0; n < NUMSLIDERS; n++) {
-
+       
         samplingRate = sampleRate;
         sc[n].sine.setSamplingRate(sampleRate);
         }

@@ -2,7 +2,7 @@
 // CCRMA, Stanford University
 //
 // Author: Romain Michon (rmichonATccrmaDOTstanfordDOTedu)
-// Edited by Victoria Grace 9/4/2016
+// Edited by Victoria Grace 10/4/2016
 
 // Description: Simple JUCE sine wave synthesizer
 

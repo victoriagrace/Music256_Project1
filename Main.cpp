@@ -1,7 +1,6 @@
 // Music 256a / CS 476a | fall 2016
 // CCRMA, Stanford University
 //
-// Author: Romain Michon (rmichonATccrmaDOTstanfordDOTedu)
 // Description: Simple JUCE sine wave synthesizer
 
 #include "../JuceLibraryCode/JuceHeader.h"
